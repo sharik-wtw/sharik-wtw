@@ -1,14 +1,19 @@
-function updateActivity() {
-    const errorDiv = document.getElementById('error');
-    if (errorDiv && !errorDiv.classList.contains('hidden')) {
-        errorDiv.classList.add('hidden');
-    }
-}
+// Static dummy credentials
+const validEmail = 'test-user@dummyclaim.com';
+const validPassword = 'TestUser@0987654321';
 
 // Attach activity listeners to hide error messages
 ["click", "keydown", "scroll", "touchstart"].forEach(event => {
     window.addEventListener(event, updateActivity);
 });
+
+document.addEventListener('keydown', function (event) {
+    if (event.ctrlKey && event.altKey && event.key.toLowerCase() === 'l') {
+        document.getElementById('email').value = validEmail;
+        document.getElementById('password').value = validPassword;
+    }
+});
+
 
 document.getElementById('loginForm').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -16,10 +21,6 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
     const errorDiv = document.getElementById('error');
-
-    // Static dummy credentials
-    const validEmail = 'test-user@dummyclaim.com';
-    const validPassword = 'TestUser@0987654321';
 
     // Regex for standard email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -64,5 +65,10 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
     }
 });
 
-
+function updateActivity() {
+    const errorDiv = document.getElementById('error');
+    if (errorDiv && !errorDiv.classList.contains('hidden')) {
+        errorDiv.classList.add('hidden');
+    }
+}
 
