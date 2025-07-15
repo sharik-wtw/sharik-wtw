@@ -67,7 +67,26 @@
         <p class="text-sm text-gray-700 mt-1">Preferred plan: <span class="font-semibold">Gold Health+</span></p>
       </div>
     </section>
-    
+
+    <!-- Claim Status Check -->
+    <div class="bg-white shadow rounded-lg p-6 col-span-1">
+      <h2 class="text-lg font-semibold text-gray-800 mb-4">Check Claim Status</h2>
+      <div class="flex items-center space-x-2">
+        <input id="claimIdInput" type="text" placeholder="Enter Claim ID"
+          class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <button onclick="checkClaimStatus()"
+          class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Check</button>
+      </div>
+      <p class="text-xs text-gray-500 mt-2">Valid Claim IDs:
+        <span class="font-mono">CLM1234</span>,
+        <span class="font-mono">CLM5678</span>,
+        <span class="font-mono">CLM9012</span>,
+        <span class="font-mono">CLM3456</span>
+      </p>
+      <div id="claimStatusResult" class="mt-4 text-sm text-black-700"></div>
+    </div>
+
+
     <!-- Create New Claim Button -->
     <div class="flex justify-end m-6">
       <a href="claim.html">
@@ -84,6 +103,41 @@
   <footer class="bg-white mt-10 p-4 shadow-inner text-center text-sm text-gray-500">
     &copy; 2025 DummyClaim. All rights reserved.
   </footer>
+  <script>
+    const validClaims = {
+      "CLM1234": "Approved",
+      "CLM5678": "Pending",
+      "CLM9012": "Rejected",
+      "CLM3456": "Under Review"
+    };
+
+    function checkClaimStatus() {
+      const input = document.getElementById("claimIdInput").value.trim().toUpperCase();
+      const resultDiv = document.getElementById("claimStatusResult");
+
+      const timeout = randomTimeout();// Simulate random delay between 1 and 100 ms
+
+      resultDiv.innerHTML = "Checking status... ";
+
+      setTimeout(() => {
+        if (validClaims[input]) {
+          resultDiv.innerHTML = `<span class="font-semibold">Status:</span> ${validClaims[input]}`;
+        } else {
+          resultDiv.innerHTML = `<span class="text-red-600">Invalid Claim ID. Please try again.</span>`;
+        }
+      }, timeout); // Simulate delay
+    }
+
+
+    function randomTimeout(min = 3, max = 10) {
+      // Generate a random number between 3 and 20
+      // This is used to simulate a random delay for the claim status check
+      const sec = Math.floor(Math.random() * (max - min + 1)) + min;
+      return sec * 1000; // Convert seconds to milliseconds
+    }
+
+  </script>
+
 
 </body>
 
